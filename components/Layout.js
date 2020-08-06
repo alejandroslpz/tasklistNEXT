@@ -2,10 +2,27 @@ import React from "react";
 import Head from "next/head";
 import Header from "./Header";
 import Footer from "./Footer";
+import { Global, css } from "@emotion/core";
+import "./Fontawesome";
+import { config, dom } from "@fortawesome/fontawesome-svg-core";
+import { useRouter } from "next/router";
+
+config.autoAddCss = false;
 
 const Layout = ({ children }) => {
+  const router = useRouter();
   return (
     <>
+      <Global
+        styles={css`
+          html,
+          body {
+            scroll-behavior: smooth;
+            background-color: #f8f9fa;
+            ${dom.css()}
+          }
+        `}
+      />
       <Head>
         <title>TaskList</title>
         <link
@@ -15,7 +32,14 @@ const Layout = ({ children }) => {
       </Head>
       <Header />
       {children}
-      <Footer />
+
+      {router.pathname === "/login" || router.pathname === "/crear-cuenta" ? (
+        <Footer />
+      ) : (
+        <div className="column is-offset-2">
+          <Footer />
+        </div>
+      )}
     </>
   );
 };
