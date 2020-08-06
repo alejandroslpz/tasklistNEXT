@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Layout from "../components/Layout";
+import authContext from "../context/auth/authContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const Login = () => {
+  const AuthContext = useContext(authContext);
+  const { usuario } = AuthContext;
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -69,7 +73,10 @@ const Login = () => {
                     ) : null}
                   </div>
                   <div className="control">
-                    <button type="submit" className="button is-primary is-fullwidth mt-3">
+                    <button
+                      type="submit"
+                      className="button is-primary is-fullwidth mt-3"
+                    >
                       Iniciar Sesión
                     </button>
                   </div>
