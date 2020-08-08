@@ -15,6 +15,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "apollo-link-context": "^1.0.20",
     "babel-plugin-emotion": "^10.0.33",
     "formik": "^2.1.5",
     "graphql": "^15.3.0",
