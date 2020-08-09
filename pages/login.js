@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Layout from "../components/Layout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation, gql } from "@apollo/client";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { css } from "@emotion/core";
+import authContext from "../context/auth/authContext";
 
 const Container = styled.div`
   margin-top: 40%;
@@ -23,6 +23,17 @@ const AUTENTICAR_USUARIO = gql`
 `;
 
 const Login = () => {
+  // Ver si usuario está autenticado
+  const Auhtcontext = useContext(authContext);
+  const { autenticado, usuarioLogin } = Auhtcontext;
+
+  useEffect(() => {
+    const usuario = localStorage.getItem("token");
+    if (!usuario) {
+      usuarioLogin(null);
+    }
+  }, [autenticado]);
+
   // State que guarda la respuesta del servidor
   const [mensaje, guardarMensaje] = useState(null);
   // Uso de mutation
