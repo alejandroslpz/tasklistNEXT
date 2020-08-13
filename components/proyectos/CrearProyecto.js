@@ -1,22 +1,75 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { gql, useMutation } from "@apollo/client";
+
+const NUEVO_PROYECTO = gql`
+  mutation nuevoProyecto($input: ProyectoInput) {
+    nuevoProyecto(input: $input) {
+      nombre
+    }
+  }
+`;
+
+const OBTENER_PROYECTOS_USUARIO = gql`
+  query obtenerProyectosUsuario {
+    obtenerProyectosUsuario {
+      id
+      nombre
+      descripcion
+      usuario
+      creado
+      estado
+    }
+  }
+`;
 
 const CrearProyecto = () => {
+  // Mutation para crear proyecto
+  const [nuevoProyecto] = useMutation(NUEVO_PROYECTO, {
+    update(cache, { data: { nuevoProyecto } }) {
+      // Obtener el objeto de cache que deseamos actualizar
+      const { obtenerProyectosUsuario } = cache.readQuery({
+        query: OBTENER_PROYECTOS_USUARIO,
+      });
+
+      // Sobreescribir el cache
+      cache.writeQuery({
+        query: OBTENER_PROYECTOS_USUARIO,
+        data: {
+          obtenerProyectosUsuario: [...obtenerProyectosUsuario, nuevoProyecto],
+        },
+      });
+    },
+  });
+
   const formik = useFormik({
     initialValues: {
-      nombreProyecto: "",
-      password: "",
+      nombre: "",
+      descripcion: "",
     },
     validationSchema: Yup.object({
-      nombreProyecto: Yup.string().required(
-        "El nombre del proyecto es obligatorio"
+      nombre: Yup.string().required("El nombre del proyecto es obligatorio"),
+      descripcion: Yup.string().required(
+        "La descripción del proyecto es obligatoria"
       ),
-      password: Yup.string().required("La contraseña es obligatoria"),
     }),
 
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const { nombre, descripcion } = values;
+
+      try {
+        const { data } = await nuevoProyecto({
+          variables: {
+            input: {
+              nombre,
+              descripcion,
+            },
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
@@ -26,39 +79,47 @@ const CrearProyecto = () => {
       <div className="container">
         <form onSubmit={formik.handleSubmit}>
           <div className="field">
-            <label className="label" htmlFor="nombreProyecto">
+            <label className="label" htmlFor="nombre">
               Nombre del proyecto
             </label>
             <div className="control">
               <input
-                id="nombreProyecto"
+                id="nombre"
                 type="text"
                 className="input"
                 placeholder="Proyecto de ejemplo"
-                value={formik.values.nombreProyecto}
+                value={formik.values.nombre}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             </div>
-            {formik.touched.nombreProyecto && formik.errors.nombreProyecto ? (
+          </div>
+          {formik.touched.nombre && formik.errors.nombre ? (
+            <div className="notification is-danger my-2">
+              <p>{formik.errors.nombre}</p>
+            </div>
+          ) : null}
+          <div className="field">
+            <label className="label" htmlFor="descripcion">
+              Descripcion
+            </label>
+            <div className="control">
+              <textarea
+                id="descripcion"
+                className="textarea"
+                placeholder="Breve descripción del proyecto "
+                value={formik.values.descripcion}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              ></textarea>
+            </div>
+            {formik.touched.descripcion && formik.errors.descripcion ? (
               <div className="notification is-danger my-2">
-                <p>{formik.errors.nombreProyecto}</p>
+                <p>{formik.errors.descripcion}</p>
               </div>
             ) : null}
-            <div className="field my-4">
-              <label className="label" htmlFor="propietario">
-                Propietario
-              </label>
-              <div className="control">
-                <input
-                  id="promietario"
-                  class="input"
-                  type="text"
-                  placeholder="Nombre del propietario"
-                  disabled
-                />
-              </div>
-            </div>
+          </div>
+          <div className="field">
             <div className="control">
               <button
                 type="submit"

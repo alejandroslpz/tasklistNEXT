@@ -10,7 +10,7 @@ const DashboardProyectos = () => {
         <div className="column is-3">
           <CrearProyecto />
         </div>
-        <div className="column">
+        <div className="column is-9">
           <ListaProyectos />
         </div>
       </div>
