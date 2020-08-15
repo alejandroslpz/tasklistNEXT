@@ -1,11 +1,12 @@
 import React, { useReducer } from "react";
 import appContext from "./appContext";
 import appReducer from "./appReducer";
-import { ELEGIR_DASHBOARD } from "../../types";
+import { ELEGIR_DASHBOARD, ASIGNAR_PROYECTO } from "../../types";
 
 const AppState = ({ children }) => {
   const initialstate = {
     dashboard: "inicio",
+    proyecto: "",
   };
 
   // Conextar el reducer
@@ -18,9 +19,20 @@ const AppState = ({ children }) => {
     });
   };
 
+  const asignarProyecto = (proyecto) => {
+    dispatch({
+      type: ASIGNAR_PROYECTO,
+      payload: proyecto,
+    });
+  };
+
   return (
     <appContext.Provider
-      value={{ dashboard: state.dashboard, elegirDashboard }}
+      value={{
+        dashboard: state.dashboard,
+        asignarProyecto,
+        elegirDashboard,
+      }}
     >
       {children}
     </appContext.Provider>

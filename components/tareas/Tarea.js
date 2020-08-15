@@ -1,66 +1,46 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useNombreUsuario from "../../hooks/useNombreUsuario";
 
-const Box = styled.div`
-  background-color: hsl(204, 86%, 73%) !important;
-  color: white;
+const Card = styled.div`
+  border-left: 5px;
+  border-left-style: solid;
+  border-left-color: ${({ estado }) =>
+    estado === "PENDIENTE" ? "hsl(348, 100%, 61%)" : "hsl(141, 71%, 48%)"};
 `;
 
-const Icon = styled(FontAwesomeIcon)`
-  margin-left: 5px;
-`;
+const Tarea = ({ tarea }) => {
+  // Custo Hook para traer datos de usuario por ID
+  const usuario = useNombreUsuario(tarea.usuario);
 
-const Element = styled.li`
-  display: flex;
-  justify-content: space-between;
-  margin: 0 25px 10px;
-`;
+  const { nombreUsuario, correoUsuario } = usuario;
+  const { nombre, descripcion, creado, estado } = tarea;
 
-const Tarea = () => {
   return (
-    <Box className="box">
-      <p className="title is-5 has-text-centered has-text-white">
-        Nombre de la tarea
-      </p>
-      <div className="columns">
-        <div className="column">
-          <p className="has-text-centered mt-3">Responsables</p>
+    <div className="column is-4">
+      <Card className="card" estado={estado}>
+        <div className="card-content">
+          <div className="media">
+            <div className="media-left">
+              <figure className="image is-48x48">
+                <img
+                  src="https://bulma.io/images/placeholders/96x96.png"
+                  alt="Placeholder image"
+                />
+              </figure>
+            </div>
+            <div className="media-content">
+              <p className="title is-4">{nombre}</p>
+              <p className="subtitle is-6">Responsable: @{nombreUsuario}</p>
+            </div>
+          </div>
+          <div className="content">
+            {descripcion}
+            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+          </div>
         </div>
-        <div className="column">
-          <p className="has-text-centered mt-3">Status</p>
-        </div>
-      </div>
-      <div className="columns">
-        <div className="column">
-          <ul>
-            <Element>
-              Nombre 1<a className="button is-small is-primary">En proceso</a>
-            </Element>
-            <Element>
-              Nombre 2<a className="button is-small is-primary">En proceso</a>
-            </Element>
-            <Element>
-              Nombre 3<a className="button is-small is-primary">En proceso</a>
-            </Element>
-          </ul>
-        </div>
-      </div>
-      <div className="buttons are-small is-centered">
-        <button className="button is-primary">
-          Editar
-          <Icon icon="edit" />
-        </button>
-        <button className="button is-danger">
-          Eliminar
-          <Icon icon="times" />
-        </button>
-        <button className="button is-info">
-          Información
-          <Icon icon="info-circle" />
-        </button>
-      </div>
-    </Box>
+      </Card>
+    </div>
   );
 };
 

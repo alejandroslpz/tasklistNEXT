@@ -1,14 +1,20 @@
 import React, { useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useQuery, gql } from "@apollo/client";
 import authContext from "../context/auth/authContext";
+import appContext from "../context/app/appContext";
 
 const Header = () => {
-  // Query para obtener usuario y validar
+  // Definir el routing
+  const router = useRouter();
 
+  // App Context
+  const AppContext = useContext(appContext);
+  const { elegirDashboard } = AppContext;
+
+  // Auth context
   const Auhtcontext = useContext(authContext);
-  const { autenticado, usuarioLogin, usuario } = Auhtcontext;
+  const { autenticado, usuarioLogin } = Auhtcontext;
 
   useEffect(() => {
     const usuarioToken = localStorage.getItem("token");
@@ -16,9 +22,6 @@ const Header = () => {
       usuarioLogin(true);
     }
   }, [autenticado]);
-
-  // Definir el routing
-  const router = useRouter();
 
   const redireccionarLogin = () => {
     router.push("/");
@@ -28,6 +31,10 @@ const Header = () => {
   const cerrarSesion = () => {
     localStorage.removeItem("token");
     router.push("/login");
+
+    setTimeout(() => {
+      elegirDashboard("inicio");
+    }, 2000);
   };
 
   return (

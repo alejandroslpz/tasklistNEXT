@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import useNombreUsuario from "../../hooks/useNombreUsuario";
 
 const Card = styled.div`
   border-left: 5px;
@@ -9,6 +10,10 @@ const Card = styled.div`
 `;
 
 const Proyecto = ({ proyecto }) => {
+  // Custo Hook para traer datos de usuario por ID
+  const usuario = useNombreUsuario(proyecto.usuario);
+
+  const { nombreUsuario, correoUsuario } = usuario;
   const { nombre, descripcion, creado, estado } = proyecto;
 
   return (
@@ -26,7 +31,7 @@ const Proyecto = ({ proyecto }) => {
             </div>
             <div className="media-content">
               <p className="title is-4">{nombre}</p>
-              <p className="subtitle is-6">@johnsmith</p>
+              <p className="subtitle is-6">Responsable: @{nombreUsuario}</p>
             </div>
           </div>
           <div className="content">

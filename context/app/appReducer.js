@@ -1,4 +1,4 @@
-import { ELEGIR_DASHBOARD } from "../../types";
+import { ELEGIR_DASHBOARD, ASIGNAR_PROYECTO } from "../../types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -6,6 +6,12 @@ export default (state, action) => {
       return {
         ...state,
         dashboard: action.payload,
+      };
+
+    case ASIGNAR_PROYECTO:
+      return {
+        ...state,
+        proyecto: action.payload,
       };
     default:
       return state;
