@@ -20,17 +20,51 @@ const ListaProyectos = () => {
   const { data, loading, error } = useQuery(OBTENER_PROYECTOS_USUARIO);
 
   if (loading) {
-    return null;
+    return "Cargando...";
   }
 
+  // Separar proyectos pendientes y completados
+  const pendientes = data.obtenerProyectosUsuario.filter(
+    (proyecto) => proyecto.estado === "PENDIENTE"
+  );
+  const completados = data.obtenerProyectosUsuario.filter(
+    (proyecto) => proyecto.estado === "COMPLETADO"
+  );
+
   return (
-    <div className="container">
-      <div className="columns is-multiline">
-        {data.obtenerProyectosUsuario.map((proyecto) => (
-          <Proyecto key={proyecto.id} proyecto={proyecto} />
-        ))}
-      </div>
-    </div>
+    <>
+      {data.obtenerProyectosUsuario.length === 0 ? (
+        <div className="container">
+          <h4 className="title is-6 has-text-centered">No hay proyectos</h4>
+        </div>
+      ) : (
+        <>
+          <h3 className="title is-3">En progreso</h3>
+          {pendientes.length === 0 ? (
+            <h4 className="title is-6 has-text-centered py-6">
+              No hay proyectos pendientes
+            </h4>
+          ) : (
+            <div className="columns is-multiline">
+              {pendientes.map((proyecto) => (
+                <Proyecto key={proyecto.id} proyecto={proyecto} />
+              ))}
+            </div>
+          )}
+
+          {completados.length !== 0 && (
+            <>
+              <h3 className="title is-3">Completados</h3>
+              <div className="columns is-multiline">
+                {completados.map((proyecto) => (
+                  <Proyecto key={proyecto.id} proyecto={proyecto} />
+                ))}
+              </div>
+            </>
+          )}
+        </>
+      )}
+    </>
   );
 };
 

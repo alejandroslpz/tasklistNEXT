@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useContext } from "react";
 import CrearProyecto from "./CrearProyecto";
 import ListaProyectos from "./ListaProyectos";
+import appContext from "../../context/app/appContext";
 
 const DashboardProyectos = () => {
+  // Context para panel de creación de proyectos
+  const AppContext = useContext(appContext);
+
+  const { panelproyecto, setPanelProyecto } = AppContext;
+
   return (
     <>
-      <h1 className="title is-1 has-text-centered my-6">Proyectos</h1>
-      <div className="columns">
-        <div className="column is-3">
-          <CrearProyecto />
-        </div>
-        <div className="column is-9">
-          <ListaProyectos />
-        </div>
-      </div>
+      {panelproyecto ? (
+        <CrearProyecto />
+      ) : (
+        <>
+          <h1 className="title is-1 has-text-centered my-6">Proyectos</h1>
+          <div className="container mx-4">
+            <button
+              className="button is-info mb-6"
+              onClick={() => setPanelProyecto(true)}
+            >
+              Crear Proyecto
+            </button>
+            <ListaProyectos />
+          </div>
+        </>
+      )}
     </>
   );
 };

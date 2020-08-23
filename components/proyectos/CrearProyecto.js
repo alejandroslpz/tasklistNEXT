@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { gql, useMutation } from "@apollo/client";
+import appContext from "../../context/app/appContext";
 
 const NUEVO_PROYECTO = gql`
   mutation nuevoProyecto($input: ProyectoInput) {
@@ -25,6 +26,10 @@ const OBTENER_PROYECTOS_USUARIO = gql`
 `;
 
 const CrearProyecto = () => {
+  // Context para panel de creación de proyectos
+  const AppContext = useContext(appContext);
+
+  const { setPanelProyecto } = AppContext;
   // Mutation para crear proyecto
   const [nuevoProyecto] = useMutation(NUEVO_PROYECTO, {
     update(cache, { data: { nuevoProyecto } }) {
@@ -67,6 +72,10 @@ const CrearProyecto = () => {
             },
           },
         });
+
+        setTimeout(() => {
+          setPanelProyecto(false);
+        }, 1000);
       } catch (error) {
         console.log(error);
       }
@@ -75,12 +84,12 @@ const CrearProyecto = () => {
 
   return (
     <div className="box">
-      <h3 className="title is-4 has-text-centered">Crear proyecto</h3>
+      <h3 className="title is-4 has-text-centered">Crear Proyecto</h3>
       <div className="container">
         <form onSubmit={formik.handleSubmit}>
           <div className="field">
             <label className="label" htmlFor="nombre">
-              Nombre del proyecto
+              Nombre del Proyecto
             </label>
             <div className="control">
               <input
