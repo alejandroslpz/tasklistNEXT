@@ -50,10 +50,10 @@ const Index = () => {
           <Panel />
           <div className="column is-offset-2">
             <div className="container">
-              {dashboard === "inicio" ? <DashboardPrincipal /> : null}
-              {dashboard === "proyectos" ? <DashboardProyectos /> : null}
-              {dashboard === "tareas" ? <DashboardTareas /> : null}
-              {dashboard === "usuarios" ? <DashboardUsuarios /> : null}
+              {dashboard === "inicio" && <DashboardPrincipal />}
+              {dashboard === "proyectos" && <DashboardProyectos />}
+              {dashboard === "tareas" && <DashboardTareas />}
+              {dashboard === "usuarios" && <DashboardUsuarios />}
             </div>
           </div>
         </div>

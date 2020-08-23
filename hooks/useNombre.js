@@ -11,6 +11,19 @@ const OBTENER_NOMBRE_USUARIO = gql`
   }
 `;
 
+const OBTENER_NOMBRE_PROYECTO = gql`
+  query obtenerProyecto($id: ID!) {
+    obtenerProyecto(id: $id) {
+      id
+      nombre
+      descripcion
+      usuario
+      creado
+      estado
+    }
+  }
+`;
+
 const useUsuario = (id) => {
   const { data, loading, error } = useQuery(OBTENER_NOMBRE_USUARIO, {
     variables: {
@@ -28,4 +41,18 @@ const useUsuario = (id) => {
   };
 };
 
-export default useUsuario;
+const useProyecto = (id) => {
+  const { data, loading, error } = useQuery(OBTENER_NOMBRE_PROYECTO, {
+    variables: {
+      id,
+    },
+  });
+
+  if (loading) {
+    return null;
+  }
+
+  return data.obtenerProyecto.nombre;
+};
+
+export { useUsuario, useProyecto };
