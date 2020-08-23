@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import CrearTarea from "./CrearTarea";
 import ListaTareas from "./ListaTareas";
+import appContext from "../../context/app/appContext";
 
-const DashboardTares = () => {
+const DashboardTareas = () => {
+  const AppContext = useContext(appContext);
+
+  const { paneltarea, setPanelTarea } = AppContext;
+
   return (
     <>
-      <h1 className="title is-1 has-text-centered my-6">Tareas</h1>
-      <div className="columns">
-        <div className="column is-3">
-          <CrearTarea />
-        </div>
-        <div className="column">
-          <ListaTareas />
-        </div>
-      </div>
+      {paneltarea ? (
+        <CrearTarea />
+      ) : (
+        <>
+          <h1 className="title is-1 has-text-centered my-6">Tareas</h1>
+          <div className="container mx-4">
+            <button
+              className="button is-info mb-6"
+              onClick={() => setPanelTarea(true)}
+            >
+              Crear Tarea
+            </button>
+            <ListaTareas />
+          </div>
+        </>
+      )}
     </>
   );
 };
 
-export default DashboardTares;
+export default DashboardTareas;
