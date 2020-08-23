@@ -21,15 +21,15 @@ const Icono = styled(FontAwesomeIcon)`
 const Panel = () => {
   const AppContext = useContext(appContext);
 
-  const { elegirDashboard } = AppContext;
+  const { elegirDashboard, setPanelTarea, setPanelProyecto } = AppContext;
 
   return (
     <Sidebar className="column is-2">
       <h3 className="title is-4 has-text-centered has-text-white mt-6">
         Panel de control
       </h3>
-      <aside>
-        <ul className="menu-list has-text-centered">
+      <aside className="has-text-centered">
+        <ul className="menu-list">
           <Opcion>
             <Link href="/">
               <a onClick={() => elegirDashboard("inicio")}>
@@ -38,22 +38,38 @@ const Panel = () => {
               </a>
             </Link>
           </Opcion>
+        </ul>
+        <ul className="menu-list">
           <Opcion>
             <Link href="/">
-              <a onClick={() => elegirDashboard("proyectos")}>
+              <a
+                onClick={() => {
+                  elegirDashboard("proyectos");
+                  setPanelProyecto(false);
+                }}
+              >
                 <Icono icon="folder" />
                 Proyectos
               </a>
             </Link>
           </Opcion>
+        </ul>
+        <ul className="menu-list">
           <Opcion>
             <Link href="/">
-              <a onClick={() => elegirDashboard("tareas")}>
+              <a
+                onClick={() => {
+                  elegirDashboard("tareas");
+                  setPanelTarea(false);
+                }}
+              >
                 <Icono icon="tasks" />
                 Tareas
               </a>
             </Link>
           </Opcion>
+        </ul>
+        <ul className="menu-list">
           <Opcion>
             <Link href="/">
               <a onClick={() => elegirDashboard("usuarios")}>
