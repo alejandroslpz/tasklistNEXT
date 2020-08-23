@@ -8,6 +8,18 @@ import {
   faEdit,
   faTimes,
   faInfoCircle,
+  faPencilAlt,
+  faClipboardList,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faHome, faFolder, faTasks, faUser, faEdit, faTimes, faInfoCircle);
+library.add(
+  faHome,
+  faFolder,
+  faTasks,
+  faUser,
+  faEdit,
+  faTimes,
+  faInfoCircle,
+  faPencilAlt,
+  faClipboardList
+);
