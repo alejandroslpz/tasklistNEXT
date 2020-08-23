@@ -1,12 +1,19 @@
 import React, { useReducer } from "react";
 import appContext from "./appContext";
 import appReducer from "./appReducer";
-import { ELEGIR_DASHBOARD, ASIGNAR_PROYECTO } from "../../types";
+import {
+  ELEGIR_DASHBOARD,
+  ASIGNAR_PROYECTO,
+  CREAR_TAREA,
+  CREAR_PROYECTO,
+} from "../../types";
 
 const AppState = ({ children }) => {
   const initialstate = {
     dashboard: "inicio",
     proyecto: "",
+    paneltarea: false,
+    panelproyecto: false,
   };
 
   // Conextar el reducer
@@ -26,12 +33,30 @@ const AppState = ({ children }) => {
     });
   };
 
+  const setPanelTarea = (accion) => {
+    dispatch({
+      type: CREAR_TAREA,
+      payload: accion,
+    });
+  };
+
+  const setPanelProyecto = (accion) => {
+    dispatch({
+      type: CREAR_PROYECTO,
+      payload: accion,
+    });
+  };
+
   return (
     <appContext.Provider
       value={{
         dashboard: state.dashboard,
+        paneltarea: state.paneltarea,
+        panelproyecto: state.panelproyecto,
         asignarProyecto,
         elegirDashboard,
+        setPanelTarea,
+        setPanelProyecto,
       }}
     >
       {children}
