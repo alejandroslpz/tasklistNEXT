@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { useUsuario } from "../../hooks/useNombre";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import appContext from "../../context/app/appContext";
 
 const Card = styled.div`
   border-left: 5px;
@@ -22,15 +23,25 @@ const Icono = styled(FontAwesomeIcon)`
 `;
 
 const Proyecto = ({ proyecto }) => {
+  // Context para panel de creación de proyectos
+  const AppContext = useContext(appContext);
   // Custo Hook para traer datos de usuario por ID
   const usuario = useUsuario(proyecto.usuario);
+
+  const { setPanelProyecto, setProyectoSeleccionado } = AppContext;
 
   const { nombreUsuario, correoUsuario } = usuario;
   const { nombre, descripcion, creado, estado } = proyecto;
 
   return (
     <div className="column is-4">
-      <Card className="card" estado={estado}>
+      <Card
+        className="card"
+        estado={estado}
+        onClick={() => {
+          setPanelProyecto("Proyecto"), setProyectoSeleccionado(proyecto);
+        }}
+      >
         <div className="card-content">
           <div className="media">
             <div className="media-left">
@@ -41,7 +52,9 @@ const Proyecto = ({ proyecto }) => {
               <p className="subtitle is-6">Responsable: @{nombreUsuario}</p>
             </div>
           </div>
-          <div className="content">{descripcion}</div>
+          <div className="content">
+            <p>{descripcion}</p>
+          </div>
         </div>
       </Card>
     </div>

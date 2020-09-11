@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { gql, useMutation } from "@apollo/client";
 import appContext from "../../context/app/appContext";
+import { css } from "@emotion/core";
 
 const NUEVO_PROYECTO = gql`
   mutation nuevoProyecto($input: ProyectoInput) {
@@ -83,62 +84,71 @@ const CrearProyecto = () => {
   });
 
   return (
-    <div className="box">
-      <h3 className="title is-4 has-text-centered">Crear Proyecto</h3>
-      <div className="container">
-        <form onSubmit={formik.handleSubmit}>
-          <div className="field">
-            <label className="label" htmlFor="nombre">
-              Nombre del Proyecto
-            </label>
-            <div className="control">
-              <input
-                id="nombre"
-                type="text"
-                className="input"
-                placeholder="Proyecto de ejemplo"
-                value={formik.values.nombre}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </div>
-          </div>
-          {formik.touched.nombre && formik.errors.nombre ? (
-            <div className="notification is-danger my-2">
-              <p>{formik.errors.nombre}</p>
-            </div>
-          ) : null}
-          <div className="field">
-            <label className="label" htmlFor="descripcion">
-              Descripcion
-            </label>
-            <div className="control">
-              <textarea
-                id="descripcion"
-                className="textarea"
-                placeholder="Breve descripción del proyecto "
-                value={formik.values.descripcion}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              ></textarea>
-            </div>
-            {formik.touched.descripcion && formik.errors.descripcion ? (
-              <div className="notification is-danger my-2">
-                <p>{formik.errors.descripcion}</p>
+    <div className="columns is-centered">
+      <div
+        className="column is-5"
+        css={css`
+          margin-top: 100px;
+        `}
+      >
+        <div className="box animate__animated animate__slideInDown">
+          <h3 className="title is-4 has-text-centered">Crear Proyecto</h3>
+          <div className="container">
+            <form onSubmit={formik.handleSubmit}>
+              <div className="field">
+                <label className="label" htmlFor="nombre">
+                  Nombre del Proyecto
+                </label>
+                <div className="control">
+                  <input
+                    id="nombre"
+                    type="text"
+                    className="input"
+                    placeholder="Proyecto de ejemplo"
+                    value={formik.values.nombre}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                </div>
               </div>
-            ) : null}
+              {formik.touched.nombre && formik.errors.nombre ? (
+                <div className="notification is-danger my-2">
+                  <p>{formik.errors.nombre}</p>
+                </div>
+              ) : null}
+              <div className="field">
+                <label className="label" htmlFor="descripcion">
+                  Descripcion
+                </label>
+                <div className="control">
+                  <textarea
+                    id="descripcion"
+                    className="textarea"
+                    placeholder="Breve descripción del proyecto "
+                    value={formik.values.descripcion}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  ></textarea>
+                </div>
+                {formik.touched.descripcion && formik.errors.descripcion ? (
+                  <div className="notification is-danger my-2">
+                    <p>{formik.errors.descripcion}</p>
+                  </div>
+                ) : null}
+              </div>
+              <div className="field">
+                <div className="control">
+                  <button
+                    type="submit"
+                    className="button is-primary is-fullwidth mt-3"
+                  >
+                    Crear Proyecto
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
-          <div className="field">
-            <div className="control">
-              <button
-                type="submit"
-                className="button is-primary is-fullwidth mt-3"
-              >
-                Crear Proyecto
-              </button>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );

@@ -45,7 +45,7 @@ const Panel = () => {
               <a
                 onClick={() => {
                   elegirDashboard("proyectos");
-                  setPanelProyecto(false);
+                  setPanelProyecto(null);
                 }}
               >
                 <Icono icon="folder" />
