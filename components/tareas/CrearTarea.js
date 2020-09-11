@@ -4,6 +4,7 @@ import Select from "react-select";
 import { Formik } from "formik";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import appContext from "../../context/app/appContext";
+import { css } from "@emotion/core";
 
 // Comentarios
 
@@ -143,108 +144,119 @@ const CrearTarea = () => {
   };
 
   return (
-    <div className="box mt-4">
-      <h3 className="title is-4 has-text-centered">Crear Tarea</h3>
-      <div className="container">
-        <Formik
-          validationSchema={validationSchema}
-          initialValues={initialValues}
-          onSubmit={(valores, funciones) => {
-            enviarDatos(valores);
-          }}
-        >
-          {(props) => {
-            return (
-              <form onSubmit={props.handleSubmit}>
-                <div className="field">
-                  <label className="label">Proyecto</label>
-                  <div className="control">
-                    <Select
-                      options={obtenerProyectosUsuario}
-                      onChange={(opcion) => setProyecto(opcion.id)}
-                      getOptionValue={(opciones) => opciones.id}
-                      getOptionLabel={(opciones) => opciones.nombre}
-                      placeholder="Selecciona un proyecto"
-                      noOptionsMessage={() => "No hay resultados"}
-                    />
-                  </div>
-                </div>
-                <div className="field">
-                  <label className="label">Usuario</label>
-                  <div className="control">
-                    <Select
-                      options={obtenerUsuarios}
-                      onChange={(opcionesUsuario) =>
-                        setUsuarioSeleccionado(opcionesUsuario.id)
-                      }
-                      getOptionValue={(opcionesUsuario) => opcionesUsuario.id}
-                      getOptionLabel={(opcionesUsuario) =>
-                        opcionesUsuario.nombre
-                      }
-                      placeholder="Selecciona un usuario"
-                      noOptionsMessage={() => "No hay resultados"}
-                    />
-                  </div>
-                </div>
-                <div className="field">
-                  <label className="label" htmlFor="nombreTarea">
-                    Nombre de la tarea
-                  </label>
-                  <div className="control">
-                    <input
-                      id="nombreTarea"
-                      type="text"
-                      className="input"
-                      placeholder="Tarea de ejemplo"
-                      value={props.values.nombreTarea}
-                      onChange={props.handleChange}
-                      onBlur={props.handleBlur}
-                    />
-                  </div>
-                </div>
-                {props.touched.nombreTarea && props.errors.nombreTarea ? (
-                  <div className="notification is-danger my-2">
-                    <p>{props.errors.nombreTarea}</p>
-                  </div>
-                ) : null}
-                <div className="field">
-                  <label className="label" htmlFor="descripcion">
-                    Descripcion
-                  </label>
-                  <div className="control">
-                    <textarea
-                      id="descripcion"
-                      className="textarea"
-                      placeholder="Breve descripción de la tarea "
-                      value={props.values.descripcion}
-                      onChange={props.handleChange}
-                      onBlur={props.handleBlur}
-                    ></textarea>
-                  </div>
-                </div>
-                {props.touched.descripcion && props.errors.descripcion ? (
-                  <div className="notification is-danger my-2">
-                    <p>{props.errors.descripcion}</p>
-                  </div>
-                ) : null}
-                <div className="field">
-                  <div className="control">
-                    <button
-                      type="submit"
-                      className="button is-primary is-fullwidth mt-3"
-                      onClick={() => (
-                        (props.values.proyectoId = proyecto),
-                        (props.values.usuarioId = usuarioSeleccionado)
-                      )}
-                    >
-                      Crear tarea
-                    </button>
-                  </div>
-                </div>
-              </form>
-            );
-          }}
-        </Formik>
+    <div className="columns is-centered">
+      <div
+        className="column is-5"
+        css={css`
+          margin-top: 100px;
+        `}
+      >
+        <div className="box">
+          <h3 className="title is-4 has-text-centered">Crear Tarea</h3>
+          <div className="container">
+            <Formik
+              validationSchema={validationSchema}
+              initialValues={initialValues}
+              onSubmit={(valores, funciones) => {
+                enviarDatos(valores);
+              }}
+            >
+              {(props) => {
+                return (
+                  <form onSubmit={props.handleSubmit}>
+                    <div className="field">
+                      <label className="label">Proyecto</label>
+                      <div className="control">
+                        <Select
+                          options={obtenerProyectosUsuario}
+                          onChange={(opcion) => setProyecto(opcion.id)}
+                          getOptionValue={(opciones) => opciones.id}
+                          getOptionLabel={(opciones) => opciones.nombre}
+                          placeholder="Selecciona un proyecto"
+                          noOptionsMessage={() => "No hay resultados"}
+                        />
+                      </div>
+                    </div>
+                    <div className="field">
+                      <label className="label">Usuario</label>
+                      <div className="control">
+                        <Select
+                          options={obtenerUsuarios}
+                          onChange={(opcionesUsuario) =>
+                            setUsuarioSeleccionado(opcionesUsuario.id)
+                          }
+                          getOptionValue={(opcionesUsuario) =>
+                            opcionesUsuario.id
+                          }
+                          getOptionLabel={(opcionesUsuario) =>
+                            opcionesUsuario.nombre
+                          }
+                          placeholder="Selecciona un usuario"
+                          noOptionsMessage={() => "No hay resultados"}
+                        />
+                      </div>
+                    </div>
+                    <div className="field">
+                      <label className="label" htmlFor="nombreTarea">
+                        Nombre de la tarea
+                      </label>
+                      <div className="control">
+                        <input
+                          id="nombreTarea"
+                          type="text"
+                          className="input"
+                          placeholder="Tarea de ejemplo"
+                          value={props.values.nombreTarea}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                        />
+                      </div>
+                    </div>
+                    {props.touched.nombreTarea && props.errors.nombreTarea ? (
+                      <div className="notification is-danger my-2">
+                        <p>{props.errors.nombreTarea}</p>
+                      </div>
+                    ) : null}
+                    <div className="field">
+                      <label className="label" htmlFor="descripcion">
+                        Descripcion
+                      </label>
+                      <div className="control">
+                        <textarea
+                          id="descripcion"
+                          className="textarea"
+                          placeholder="Breve descripción de la tarea "
+                          value={props.values.descripcion}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                        ></textarea>
+                      </div>
+                    </div>
+                    {props.touched.descripcion && props.errors.descripcion ? (
+                      <div className="notification is-danger my-2">
+                        <p>{props.errors.descripcion}</p>
+                      </div>
+                    ) : null}
+                    <div className="field">
+                      <div className="control">
+                        <button
+                          type="submit"
+                          className="button is-primary is-fullwidth mt-3"
+                          onClick={() => (
+                            (props.values.proyectoId = proyecto),
+                            (props.values.usuarioId = usuarioSeleccionado)
+                          )}
+                        >
+                          Crear tarea
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                );
+              }}
+            </Formik>
+          </div>
+        </div>
       </div>
     </div>
   );
