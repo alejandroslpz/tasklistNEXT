@@ -3,6 +3,7 @@ import {
   ASIGNAR_PROYECTO,
   CREAR_TAREA,
   CREAR_PROYECTO,
+  SELECCIONAR_PROYECTO_INFO,
 } from "../../types";
 
 export default (state, action) => {
@@ -29,6 +30,11 @@ export default (state, action) => {
       return {
         ...state,
         panelproyecto: action.payload,
+      };
+    case SELECCIONAR_PROYECTO_INFO:
+      return {
+        ...state,
+        proyectoseleccionado: action.payload,
       };
 
     default:

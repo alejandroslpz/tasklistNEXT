@@ -6,6 +6,7 @@ import {
   ASIGNAR_PROYECTO,
   CREAR_TAREA,
   CREAR_PROYECTO,
+  SELECCIONAR_PROYECTO_INFO,
 } from "../../types";
 
 const AppState = ({ children }) => {
@@ -13,7 +14,8 @@ const AppState = ({ children }) => {
     dashboard: "inicio",
     proyecto: "",
     paneltarea: false,
-    panelproyecto: false,
+    panelproyecto: null,
+    proyectoseleccionado: {},
   };
 
   // Conextar el reducer
@@ -47,16 +49,25 @@ const AppState = ({ children }) => {
     });
   };
 
+  const setProyectoSeleccionado = (proyecto) => {
+    dispatch({
+      type: SELECCIONAR_PROYECTO_INFO,
+      payload: proyecto,
+    });
+  };
+
   return (
     <appContext.Provider
       value={{
         dashboard: state.dashboard,
         paneltarea: state.paneltarea,
         panelproyecto: state.panelproyecto,
+        proyectoseleccionado: state.proyectoseleccionado,
         asignarProyecto,
         elegirDashboard,
         setPanelTarea,
         setPanelProyecto,
+        setProyectoSeleccionado,
       }}
     >
       {children}
