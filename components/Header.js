@@ -24,6 +24,7 @@ const Header = () => {
   }, [autenticado]);
 
   const redireccionarLogin = () => {
+    elegirDashboard("inicio");
     router.push("/");
   };
 
