@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
+import appContext from "../../context/app/appContext";
 import { useProyecto } from "../../hooks/useNombre";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -8,8 +9,8 @@ const Card = styled.div`
   border-left-style: solid;
   border-left-color: ${({ estado }) =>
     estado === "PENDIENTE" ? "hsl(348, 100%, 61%)" : "hsl(141, 71%, 48%)"};
-  cursor: pointer;
   transition: 0.3s ease-out;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.1);
@@ -23,11 +24,19 @@ const Icono = styled(FontAwesomeIcon)`
 
 const Tarea = ({ tarea }) => {
   const nombreProyecto = useProyecto(tarea.proyecto);
+  const AppContext = useContext(appContext);
+  const { setPanelTarea, setTareaSeleccionada } = AppContext;
   const { nombre, descripcion, creado, estado } = tarea;
 
   return (
     <div className="column is-4">
-      <Card className="card" estado={estado}>
+      <Card
+        className="card"
+        estado={estado}
+        onClick={() => {
+          setPanelTarea("Tarea"), setTareaSeleccionada(tarea);
+        }}
+      >
         <div className="card-content">
           <div className="media">
             <div className="media-left">
