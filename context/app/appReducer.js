@@ -4,6 +4,7 @@ import {
   CREAR_TAREA,
   CREAR_PROYECTO,
   SELECCIONAR_PROYECTO_INFO,
+  SELECCIONAR_TAREA_INFO,
 } from "../../types";
 
 export default (state, action) => {
@@ -35,6 +36,12 @@ export default (state, action) => {
       return {
         ...state,
         proyectoseleccionado: action.payload,
+      };
+
+    case SELECCIONAR_TAREA_INFO:
+      return {
+        ...state,
+        tareaseleccionada: action.payload,
       };
 
     default:

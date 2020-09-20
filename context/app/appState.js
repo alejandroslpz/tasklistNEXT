@@ -7,15 +7,17 @@ import {
   CREAR_TAREA,
   CREAR_PROYECTO,
   SELECCIONAR_PROYECTO_INFO,
+  SELECCIONAR_TAREA_INFO,
 } from "../../types";
 
 const AppState = ({ children }) => {
   const initialstate = {
     dashboard: "inicio",
     proyecto: "",
-    paneltarea: false,
+    paneltarea: null,
     panelproyecto: null,
     proyectoseleccionado: {},
+    tareaseleccionada: {},
   };
 
   // Conextar el reducer
@@ -56,6 +58,13 @@ const AppState = ({ children }) => {
     });
   };
 
+  const setTareaSeleccionada = (tarea) => {
+    dispatch({
+      type: SELECCIONAR_TAREA_INFO,
+      payload: tarea,
+    });
+  };
+
   return (
     <appContext.Provider
       value={{
@@ -63,11 +72,13 @@ const AppState = ({ children }) => {
         paneltarea: state.paneltarea,
         panelproyecto: state.panelproyecto,
         proyectoseleccionado: state.proyectoseleccionado,
+        tareaseleccionada: state.tareaseleccionada,
         asignarProyecto,
         elegirDashboard,
         setPanelTarea,
         setPanelProyecto,
         setProyectoSeleccionado,
+        setTareaSeleccionada,
       }}
     >
       {children}
