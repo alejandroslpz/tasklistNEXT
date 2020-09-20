@@ -7,7 +7,7 @@ const TareasProyecto = ({ tareas }) => {
   const completados = tareas.filter((tarea) => tarea.estado === "COMPLETADO");
 
   return (
-    <div className="animate__animated animate__slideInUp">
+    <div className="animate__animated animate__zoomIn">
       {tareas.length === 0 ? (
         <div className="container">
           <h4 className="title is-6 has-text-centered">

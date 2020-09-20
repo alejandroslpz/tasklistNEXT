@@ -31,7 +31,7 @@ const ProyectoInfo = () => {
 
   const { nombreUsuario } = responsable;
   const { proyectoseleccionado } = AppContext;
-  const { nombre, descripcion } = proyectoseleccionado;
+  const { nombre, descripcion, estado } = proyectoseleccionado;
 
   if (loading) {
     return null;
@@ -49,11 +49,19 @@ const ProyectoInfo = () => {
               <p>Responsable: {nombreUsuario}</p>
               <p>{descripcion}</p>
             </div>
-            <div className="buttons has-addons is-right">
-              <button className="button" disabled>
+            <div className="buttons are-small has-addons is-right">
+              <button
+                className={`button ${
+                  estado === "COMPLETADO" ? "is-success is-selected" : null
+                }`}
+              >
                 Completado
               </button>
-              <button className="button is-danger is-selected" disabled>
+              <button
+                className={`button ${
+                  estado === "PENDIENTE" ? "is-danger is-selected" : null
+                }`}
+              >
                 Pendiente
               </button>
             </div>
