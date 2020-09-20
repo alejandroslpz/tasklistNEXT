@@ -5,9 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import appContext from "../context/app/appContext";
 
 const Sidebar = styled.div`
+  display: none;
   position: fixed;
   height: 100%;
   background-color: #00c5a2;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
 `;
 
 const Opcion = styled.li`
@@ -60,7 +65,7 @@ const Panel = () => {
               <a
                 onClick={() => {
                   elegirDashboard("tareas");
-                  setPanelTarea(false);
+                  setPanelTarea(null);
                 }}
               >
                 <Icono icon="tasks" />
