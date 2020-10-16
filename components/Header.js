@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import authContext from "../context/auth/authContext";
 import appContext from "../context/app/appContext";
+import Burger from "./ui/Burger";
 
 const Header = () => {
   // Definir el routing
@@ -53,13 +54,16 @@ const Header = () => {
       <div className="navbar-end">
         <div className="navbar-item">
           {autenticado ? (
-            <button
-              type="button"
-              className="button is-primary is-outlined"
-              onClick={() => cerrarSesion()}
-            >
-              Cerrar sesión
-            </button>
+            <>
+              <button
+                type="button"
+                className="button is-primary is-outlined"
+                onClick={() => cerrarSesion()}
+              >
+                Cerrar sesión
+              </button>
+              <Burger />
+            </>
           ) : (
             <div className="buttons">
               <Link href="/login">
