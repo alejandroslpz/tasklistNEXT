@@ -25,7 +25,7 @@ const Icono = styled(FontAwesomeIcon)`
 const Tarea = ({ tarea }) => {
   const nombreProyecto = useProyecto(tarea.proyecto);
   const AppContext = useContext(appContext);
-  const { setPanelTarea, setTareaSeleccionada } = AppContext;
+  const { setPanelTarea, setTareaSeleccionada, elegirDashboard } = AppContext;
   const { nombre, descripcion, creado, estado } = tarea;
 
   return (
@@ -34,7 +34,9 @@ const Tarea = ({ tarea }) => {
         className="card"
         estado={estado}
         onClick={() => {
-          setPanelTarea("Tarea"), setTareaSeleccionada(tarea);
+          elegirDashboard("tareas"),
+            setPanelTarea("Tarea"),
+            setTareaSeleccionada(tarea);
         }}
       >
         <div className="card-content">

@@ -144,7 +144,7 @@ const CrearTarea = () => {
   };
 
   return (
-    <div className="columns is-centered">
+    <div className="columns is-centered mx-1">
       <div
         className="column is-5"
         css={css`
