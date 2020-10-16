@@ -7,7 +7,7 @@ import appContext from "../../context/app/appContext";
 const Ul = styled.ul`
   z-index: 10;
   list-style: none;
-  display: flex;
+  display: none;
   flex-flow: row nowrap;
 
   li {
@@ -15,6 +15,7 @@ const Ul = styled.ul`
   }
 
   @media (max-width: 768px) {
+    display: block;
     flex-flow: column nowrap;
     background-color: #00c5a2;
     position: fixed;
