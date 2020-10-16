@@ -74,7 +74,7 @@ const Panel = () => {
             </Link>
           </Opcion>
         </ul>
-        <ul className="menu-list">
+        {/* <ul className="menu-list">
           <Opcion>
             <Link href="/">
               <a onClick={() => elegirDashboard("usuarios")}>
@@ -83,7 +83,7 @@ const Panel = () => {
               </a>
             </Link>
           </Opcion>
-        </ul>
+        </ul> */}
       </aside>
     </Sidebar>
   );
