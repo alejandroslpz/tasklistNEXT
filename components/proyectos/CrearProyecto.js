@@ -91,7 +91,7 @@ const CrearProyecto = () => {
           margin-top: 100px;
         `}
       >
-        <div className="box animate__animated animate__slideInDown">
+        <div className="box animate__animated animate__slideInDown mx-2">
           <h3 className="title is-4 has-text-centered">Crear Proyecto</h3>
           <div className="container">
             <form onSubmit={formik.handleSubmit}>
