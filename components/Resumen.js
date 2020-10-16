@@ -1,6 +1,6 @@
 import React from "react";
-import GraficaResumen from "./ui/GraficaResumen";
 import { useQuery, gql } from "@apollo/client";
+// import GraficaResumen from "./ui/GraficaResumen";
 
 const OBTENER_PROYECTOS_USUARIO = gql`
   query obtenerProyectosUsuario {
@@ -93,18 +93,18 @@ const Resumen = () => {
   return (
     <>
       <div className="columns">
-        <div className="column">
+        {/* <div className="column">
           <GraficaResumen />
-        </div>
-        <div className="column">
+        </div> */}
+        <div className="column has-text-centered">
           <h2 className="title is-3 has-text-centered">
             ¡Bienvenido {dataUsuario.obtenerUsuario.nombre}!
           </h2>
-          <p>Correo: {dataUsuario.obtenerUsuario.email}</p>
+          <p className="pt-6">Correo: {dataUsuario.obtenerUsuario.email}</p>
           <p className="py-2">Fecha de registro: {fechaCreado}</p>
         </div>
       </div>
-      <div className="box">
+      <div className="box mt-6">
         <nav className="level">
           <div className="level-item has-text-centered">
             <div>
